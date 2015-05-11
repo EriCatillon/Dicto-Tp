@@ -4,5 +4,14 @@
 
 {% block body %}
 <h1>Welcome to the Word:Create page</h1>
-{{ form(wordForm, {"attr":{"novalidate":"novalidate"}}) }}
+	{{ post.id }}
+	{{ post.definition }}
+	{{ post.pronunciation }}
+	{{ post.example }}
+	{{ post.origin }}
+	{{ post.useOfWord }}
+	{{ post.vote }}
+	<a href="{{ path('vote', {'id': post.id}) }}">vote</a>
+	<a href="{{ path('update', {'id': post.id}) }}">update</a>
+	<a href="{{ path('delete', {'id': post.id}) }}">delete</a>
 {% endblock %}

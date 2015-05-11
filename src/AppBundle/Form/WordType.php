@@ -22,6 +22,7 @@ class WordType extends AbstractType
             ->add('origin')
             ->add('useOfWord')
             ->add('vote')
+            ->add('Go','submit')
         ;
     }
     

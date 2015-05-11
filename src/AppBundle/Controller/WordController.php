@@ -41,11 +41,11 @@ class WordController extends Controller
 
             $typeRepo = $this->getDoctrine()->getRepository("AppBundle:Type");
 
-            $id =1;
+            /*$id =1;
         
             $type= $typeRepo->find($id);
             $newWord->settype($type);
-            
+            */
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($newWord);
@@ -70,7 +70,7 @@ class WordController extends Controller
 
     }
     /**
-     * @Route("/Delete/{id}")
+     * @Route("/Delete/{id}", name="delete")
      * @Template()
      */
     public function DeleteAction($id,Request $request)
@@ -111,12 +111,12 @@ class WordController extends Controller
     public function ShowSingleAction($id,Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('AppBundle:Word')->find($id);
+        $post = $em->getRepository('AppBundle:Word')->find($id);
 
-        return $this->render('Word/ShowSingle.html.twig', array('posts' => $posts));
+        return $this->render('Word/ShowSingle.html.twig', array('post' => $post));
     }
     /**
-     * @Route("/Update/{id}")
+     * @Route("/Update/{id}", name="update")
      * @Template()
      */
     public function UpdateAction($id,Request $request)
@@ -159,13 +159,29 @@ class WordController extends Controller
     }
 
     /**
-     * @Route("/Vote")
+     * @Route("/Vote/{id}", name="vote")
      * @Template()
      */
-    public function VoteAction()
+    public function VoteAction($id)
     {
-        return array(
-                // ...
-            );    }
+        $wordRepo = $this->getDoctrine()->getRepository("AppBundle:Word");
+        
+        $word= $wordRepo->find($id);
+
+        $vote = $word->getVote();
+
+        $vote++;
+
+        $word->setVote($vote);
+
+        
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($word);
+        $em->flush();
+
+        
+
+    }
 
 }
