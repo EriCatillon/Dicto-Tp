@@ -29,6 +29,12 @@ class Word
     private $the_word;
 
     /**
+    * @ORM\OneToOne(targetEntity="AppBundle\Entity\Type")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $type;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="definition", type="string", length=255)
@@ -59,12 +65,12 @@ class Word
     /**
      * @var string
      *
-     * @ORM\Column(name="use of word", type="string", length=255)
+     * @ORM\Column(name="useOfWord", type="string", length=255)
      */
     private $useOfWord;
 
     /**
-     * @var string
+     * @var integer
      *
      * @ORM\Column(type="integer")
      */
@@ -216,5 +222,28 @@ class Word
     public function getTheWord()
     {
         return $this->the_word;
+    }
+
+    /**
+     * Set vote
+     *
+     * @param integer $vote
+     * @return Word
+     */
+    public function setVote($vote)
+    {
+        $this->vote = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Get vote
+     *
+     * @return integer 
+     */
+    public function getVote()
+    {
+        return $this->vote;
     }
 }

@@ -29,6 +29,12 @@ class Word
     private $the_word;
 
     /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Type", mappedBy="advert")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $type;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="definition", type="string", length=255)
@@ -239,5 +245,28 @@ class Word
     public function getVote()
     {
         return $this->vote;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\Type $type
+     * @return Word
+     */
+    public function setType(\AppBundle\Entity\Type $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\Type 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

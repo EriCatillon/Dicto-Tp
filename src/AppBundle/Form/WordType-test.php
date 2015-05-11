@@ -21,7 +21,9 @@ class WordType extends AbstractType
             ->add('example')
             ->add('origin')
             ->add('useOfWord')
-            ->add('vote')
+            //->add('type')
+            //->add('vote')
+            ->add('save', 'submit')
         ;
     }
     

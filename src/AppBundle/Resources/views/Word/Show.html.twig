@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Word:Create{% endblock %}
+
+{% block body %}
+	{% for post in posts %}
+        <article class="post">
+            <h2>
+                {{ post.the_word }}
+            </h2>
+        </article>
+    {% endfor %}
+{% endblock %}

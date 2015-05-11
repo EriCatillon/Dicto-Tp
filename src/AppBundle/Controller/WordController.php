@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\WordType;
 
 use AppBundle\Entity\Word;
+use AppBundle\Entity\Type;
 
 class WordController extends Controller
 {
@@ -34,6 +35,16 @@ class WordController extends Controller
 
             //$newWord->setDateCreated( new Datetime() );
             $newWord->setvote(0);
+
+
+            // type select 
+
+            $typeRepo = $this->getDoctrine()->getRepository("AppBundle:Type");
+
+            $id =1;
+        
+            $type= $typeRepo->find($id);
+            $newWord->settype($type);
             
 
             $em = $this->getDoctrine()->getManager();
@@ -56,10 +67,8 @@ class WordController extends Controller
      */
     public function WordAction()
     {
-        return array(
-                // ...
-            );    }
 
+    }
     /**
      * @Route("/Delete/{id}")
      * @Template()
@@ -84,7 +93,28 @@ class WordController extends Controller
         $this->addFlash('success','actu update');
 
     }
+    /**
+     * @Route("/Show")
+     * @Template()
+     */
+    public function ShowAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Word');
 
+        return $this->render('Word/Show.html.twig', array('posts' => $posts));
+    }
+    /**
+     * @Route("/ShowSingle/{id}")
+     * @Template()
+     */
+    public function ShowSingleAction($id,Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Word')->find($id);
+
+        return $this->render('Word/ShowSingle.html.twig', array('posts' => $posts));
+    }
     /**
      * @Route("/Update/{id}")
      * @Template()
