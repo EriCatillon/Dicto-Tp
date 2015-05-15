@@ -57,6 +57,20 @@ class Word
     /**
      * @var string
      *
+     * @ORM\Column(name="definition2", type="string", length=255)
+     */
+    private $definition2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="definition3", type="string", length=255)
+     */
+    private $definition3;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="pronunciation", type="string", length=255)
      */
     private $pronunciation;
@@ -92,7 +106,7 @@ class Word
     /**
      * @var string
      *
-     * @ORM\Column(name="cotegorie", type="string", length=255)
+     * @ORM\Column(name="categorie", type="string", length=255)
      */
     private $categorie;
 
@@ -398,5 +412,51 @@ class Word
     public function getCategorie()
     {
         return $this->categorie;
+    }
+
+    /**
+     * Set definition2
+     *
+     * @param string $definition2
+     * @return Word
+     */
+    public function setDefinition2($definition2)
+    {
+        $this->definition2 = $definition2;
+
+        return $this;
+    }
+
+    /**
+     * Get definition2
+     *
+     * @return string 
+     */
+    public function getDefinition2()
+    {
+        return $this->definition2;
+    }
+
+    /**
+     * Set definition3
+     *
+     * @param string $definition3
+     * @return Word
+     */
+    public function setDefinition3($definition3)
+    {
+        $this->definition3 = $definition3;
+
+        return $this;
+    }
+
+    /**
+     * Get definition3
+     *
+     * @return string 
+     */
+    public function getDefinition3()
+    {
+        return $this->definition3;
     }
 }

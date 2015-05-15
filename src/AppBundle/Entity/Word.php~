@@ -57,6 +57,20 @@ class Word
     /**
      * @var string
      *
+     * @ORM\Column(name="definition2", type="string", length=255)
+     */
+    private $definition2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="definition3", type="string", length=255)
+     */
+    private $definition3;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="pronunciation", type="string", length=255)
      */
     private $pronunciation;
@@ -375,5 +389,28 @@ class Word
     public function removeType(\AppBundle\Entity\Type $type)
     {
         $this->type->removeElement($type);
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param string $categorie
+     * @return Word
+     */
+    public function setCategorie($categorie)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return string 
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }
