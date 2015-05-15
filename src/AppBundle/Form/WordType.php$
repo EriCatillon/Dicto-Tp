@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-
 class WordType extends AbstractType
 {
     /**
@@ -17,13 +16,12 @@ class WordType extends AbstractType
     {
         $builder
             ->add('theWord')
-            ->add('mail', 'email')
             ->add('definition')
             ->add('pronunciation')
             ->add('example')
             ->add('origin')
             ->add('useOfWord')
-            //->add('vote')
+            ->add('vote')
             ->add('categorie', 'choice', array(
                 'choices'   => array(
                     'vocabulaire' => 'Vocabulaire',
@@ -32,8 +30,7 @@ class WordType extends AbstractType
                 ),
                 'multiple'  => false,
             ))
-            ->add('captcha', 'captcha')
-            ->add('Go','submit')
+            ->add('Add','submit')
         ;
     }
     

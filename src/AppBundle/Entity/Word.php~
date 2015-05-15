@@ -24,12 +24,25 @@ class Word
     /**
      * @var string
      *
-     * @ORM\Column(name="the_word", type="string", length=255)
+     * @ORM\Column(name="mail", type="string", length=255)
      */
-    private $the_word;
+    private $mail;
 
     /**
-    * @ORM\OneToOne(targetEntity="AppBundle\Entity\Type")
+     * @var string
+     *
+     * @ORM\Column(name="theWord", type="string", length=255)
+     */
+    private $theWord;
+
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Filter", mappedBy="advert")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $filter;
+
+    /**
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Type", mappedBy="advert")
     * @ORM\JoinColumn(nullable=false)
     */
     private $type;
@@ -75,6 +88,13 @@ class Word
      * @ORM\Column(type="integer")
      */
     private $vote;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cotegorie", type="string", length=255)
+     */
+    private $categorie;
 
     /**
      * Get id
@@ -209,7 +229,7 @@ class Word
      */
     public function setTheWord($theWord)
     {
-        $this->the_word = $theWord;
+        $this->theWord = $theWord;
 
         return $this;
     }
@@ -221,7 +241,7 @@ class Word
      */
     public function getTheWord()
     {
-        return $this->the_word;
+        return $this->theWord;
     }
 
     /**
@@ -245,5 +265,115 @@ class Word
     public function getVote()
     {
         return $this->vote;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\Type $type
+     * @return Word
+     */
+    public function setType(\AppBundle\Entity\Type $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\Type 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->filter = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->type = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set mail
+     *
+     * @param string $mail
+     * @return Word
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * Get mail
+     *
+     * @return string 
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Add filter
+     *
+     * @param \AppBundle\Entity\Filter $filter
+     * @return Word
+     */
+    public function addFilter(\AppBundle\Entity\Filter $filter)
+    {
+        $this->filter[] = $filter;
+
+        return $this;
+    }
+
+    /**
+     * Remove filter
+     *
+     * @param \AppBundle\Entity\Filter $filter
+     */
+    public function removeFilter(\AppBundle\Entity\Filter $filter)
+    {
+        $this->filter->removeElement($filter);
+    }
+
+    /**
+     * Get filter
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * Add type
+     *
+     * @param \AppBundle\Entity\Type $type
+     * @return Word
+     */
+    public function addType(\AppBundle\Entity\Type $type)
+    {
+        $this->type[] = $type;
+
+        return $this;
+    }
+
+    /**
+     * Remove type
+     *
+     * @param \AppBundle\Entity\Type $type
+     */
+    public function removeType(\AppBundle\Entity\Type $type)
+    {
+        $this->type->removeElement($type);
     }
 }

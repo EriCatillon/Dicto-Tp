@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Word:Create{% endblock %}
+
+{% block body %}
+	<h2>Un nouveau mot a été ajouter</h2>	
+	{{ name.id }}
+	{{ name.definition }}
+	{{ name.pronunciation }}
+	{{ name.example }}
+	{{ name.origin }}
+	{{ name.useOfWord }}
+	{{ name.vote }}
+{% endblock %}

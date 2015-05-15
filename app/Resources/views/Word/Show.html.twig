@@ -1,8 +1,38 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}AppBundle:Word:Delete{% endblock %}
+{% block title %}Wikébec{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Word:Delete page</h1>
-
+	<div id="wrapper">
+		<h1>Wikébec: Show page</h1>
+		<nav class="navbar navbar-default">
+			<ul class="nav navbar-nav">
+				<li id="all" class="tagMenu active"><a href="#">All</a></li>
+				<li id="vocabulaire" class="tagMenu"><a href="#">Vocabulaire</a></li>
+				<li id="sacres" class="tagMenu"><a href="#">Sacres</a></li>
+				<li id="deformations" class="tagMenu"><a href="#">Déformations</a></li>
+			</ul>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<input id="quicksearch" type="text" class="form-control" placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default">GO</button>
+			</form>
+		</nav>
+		<div id="listWords" class="list-group">
+			{% for post in posts %}
+		        <a href="ShowSingle/{{post.id}}" class="{{ post.categorie }} words list-group-item">
+		            {{ post.theWord }}
+		            <span> 
+		             {{ post.categorie }}
+		             {{ post.definition }}
+		             {{ post.pronunciation }}
+		             {{ post.useOfWord }}
+		             {{ post.example }}
+		             {{ post.origin }}
+		            </span>
+		        </a>
+			{% endfor %}
+	    </div>
+	</div>
 {% endblock %}

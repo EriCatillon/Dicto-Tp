@@ -8,13 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Cookie;
 
 use AppBundle\Form\WordType;
 
 use AppBundle\Entity\Word;
 use AppBundle\Entity\Type;
-
 
 class WordController extends Controller
 {
@@ -24,55 +22,38 @@ class WordController extends Controller
      */
     public function CreateAction(Request $request)
     {
-        //
-        //$container->get('request')->getClientIp();
-
-        /*$ip = $this->container->get('request')->getClientIp(); 
-
-        var_dump($ip);*/
-        
-
+        /*return array(
+                // ...
+            ); */
         $newWord = new Word();
 
         $WordForm = $this->createForm(new WordType,$newWord);
 
         $WordForm->handleRequest($request);
 
-        $request = $this->get('request');
-        $cookies = $request->cookies;
-
-
-        if ($cookies->has('mail') && !$WordForm->isValid())
-        {
-            //$form = $WordForm->getForm();
-            $WordForm->get('mail')->setData($cookies->get('mail'));
-        }
-
         if ($WordForm->isValid()) {
 
-            
-
-
+            //$newWord->setDateCreated( new Datetime() );
             $newWord->setvote(0);
 
+
+            // type select 
+
             $typeRepo = $this->getDoctrine()->getRepository("AppBundle:Type");
+
+            /*$id =1;
+        
+            $type= $typeRepo->find($id);
+            $newWord->settype($type);
+            */
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($newWord);
             $em->flush();
-            // set cookie
-            $value = $newWord->getmail();
-
-            $cookie = new Cookie('mail', $value, (time() + 3600 * 24 * 7), '/');
-            $response = new Response();
-            $response->headers->setCookie($cookie);
-            $response->send(); 
-
-
-            // mail
-            $this->get('send_mail')->SendMail($newWord,'Create');
-            //
+            //return $this->addFlash('success','word save');
             return $this->redirect($this->generateUrl('app_word_show'));
+
+
 
         }
         $params = array(
@@ -107,18 +88,13 @@ class WordController extends Controller
 
         }
 
-        $this->get('send_mail')->SendMail($word,'Delete');
-
-
         $em = $this->getDoctrine()->getManager();
         $em->remove($word);
         $em->flush();
 
-        
-
-        $this->addFlash('success','actu update');
-
+        //$this->addFlash('success','actu update');
         return $this->redirect($this->generateUrl('app_word_show'));
+
 
     }
     /**
@@ -149,7 +125,9 @@ class WordController extends Controller
      */
     public function UpdateAction($id,Request $request)
     {
-        
+        //return array(
+                // ...
+          //  );    
         $wordRepo = $this->getDoctrine()->getRepository("AppBundle:Word");
         
         $word= $wordRepo->find($id);
@@ -158,19 +136,23 @@ class WordController extends Controller
 
         $wordForm->handleRequest($request);
 
+        //dump($actu);
+
+        //$actu->setTitle('reedsfre');
+
+        //$em = $this->getDoctrine()->getManager();
+        //$em->persist($actu);
+        //$em->flush();
         if ($wordForm->isValid()) {
+            // doctrine sauvegarde l'entité
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($word);
             $em->flush();
 
-            $this->addFlash('success','Actu save');
-
-            // mail
-
-            $this->get('send_mail')->SendMail($word,'Update');
-
+            //$this->addFlash('success','Actu save');
             return $this->redirect($this->generateUrl('app_word_show'));
+
 
         }
 
@@ -188,45 +170,24 @@ class WordController extends Controller
      */
     public function VoteAction($id)
     {
-
-
-
         $wordRepo = $this->getDoctrine()->getRepository("AppBundle:Word");
         
         $word= $wordRepo->find($id);
 
         $vote = $word->getVote();
 
-        $value = $word->gettheWord();
+        $vote++;
 
-        $request = $this->get('request');
-        $cookies = $request->cookies;
-
-        if ($cookies->get('vote'.$id) == $value)
-        {
-            return $this->redirect($this->generateUrl('app_word_show'));
-
-        }else{
-
-            $cookie = new Cookie('vote'.$id, $value, (time() + 3600 * 24 * 7), '/');
-            $response = new Response();
-            $response->headers->setCookie($cookie);
-            $response->send(); 
-
-            $vote++;
-
-            $word->setVote($vote);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($word);
-            $em->flush();
-
-            $post = $em->getRepository('AppBundle:Word')->find($id);
-
-            return $this->render('Word/Vote.html.twig', array('post' => $post));        }
+        $word->setVote($vote);
 
         
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($word);
+        $em->flush();
+
         
+
     }
 
 }

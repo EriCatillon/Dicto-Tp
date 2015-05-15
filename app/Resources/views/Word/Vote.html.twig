@@ -3,5 +3,14 @@
 {% block title %}AppBundle:Word:Vote{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Word:Vote page</h1>
+<div id="wrapper">
+	<h1>Wikébec: Vote page</h1>
+	<div>
+		<h2>Thanks for your vote</h2>
+		<div>
+			<h3>{{ post.theWord }}: {{ post.vote }}</h3>
+		</div>
+		<a href="{{path('app_word_show')}}" class="btn btn-default" >Go home</a>
+	</div>
+</div>
 {% endblock %}

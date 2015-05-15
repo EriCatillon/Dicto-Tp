@@ -3,11 +3,114 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            <link href="{{ asset('assets/css/style.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('assets/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+        
+       
     </head>
     <body>
+        {% block header %}
+            <nav class="navbar navbar-inverse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{path('app_word_show')}}">Home</a></li>
+                    <li><a href="{{path('app_word_create')}}">Add Word</a></li>
+                </ul>
+            </nav>
+        {% endblock %}
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block footer %}footer{% endblock %}
+
+
+        {% block javascripts %}
+        
+        <script src="../assets/js/jquery.js"></script>
+        <script src="../assets/js/isotope.js"></script>
+        <script src="../assets/js/bootstrap.js"></script>
+
+        <script>
+            $(document).ready(function(){
+
+                var qsRegex, 
+                    container = $('#listWords'),
+                    win_height = $(window).height();
+
+                $("#wrapper").css('height', win_height);
+                
+                $(container).isotope({
+                    itemSelector: '.words',
+                    layoutMode: 'fitRows',
+                    filter: function() {
+                        return qsRegex ? $(this).text().match( qsRegex ) : true;
+                    }
+                });
+
+                setTimeout(function(){
+                    $(container).isotope( 'layout' );
+                },100);
+
+                var quicksearch = $('#quicksearch').keyup( debounce( function() {
+                    if (($('#quicksearch').val())!="") {
+                        $(".tagMenu").removeClass('active');
+                    }else{
+                        if ($(".tagMenu:not(.active)")) {
+                            $("#all").addClass('active');
+                        };
+
+                    };
+                    qsRegex = new RegExp( $(quicksearch).val(), 'gi' );
+                    $(container).isotope({
+                        filter: function() {
+                            return qsRegex ? $(this).text().match( qsRegex ) : true;
+                        }
+                    });
+                }, 10 ) );
+
+                function debounce( fn, threshold ) {
+                    var timeout;
+                    return function debounced() {
+                        if ( timeout ) {
+                            clearTimeout( timeout );
+                        }
+                        function delayed() {
+                            fn();
+                            timeout = null;
+                        }
+                        timeout = setTimeout( delayed, threshold || 100 );
+                    }
+                }
+
+                $("#vocabulaire").on('click', function(){
+                    $(container).isotope({ filter: '.vocabulaire' });
+                    $("#quicksearch").val('');
+                });
+
+                $("#sacres").on('click', function(){
+                    $(container).isotope({ filter: '.sacres' });
+                    $("#quicksearch").val('');
+                });
+
+                $("#deformations").on('click', function(){
+                    $(container).isotope({ filter: '.deformations' });
+                    $("#quicksearch").val('');
+                });
+
+                $("#all").on('click', function(){
+                    $(container).isotope({ filter: '*' });
+                    $("#quicksearch").val('');
+                });
+
+                $(".tagMenu").on('click', function(){
+                    $(".tagMenu").removeClass('active');
+                    $(this).addClass('active');
+                });
+
+            });
+        </script>
+                     
+        
+        {% endblock %}
     </body>
 </html>

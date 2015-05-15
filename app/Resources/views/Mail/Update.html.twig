@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Word:Update{% endblock %}
+
+{% block body %}
+	<h2>Un mot a été modifier</h2>	
+	{{ name.id }}
+	{{ name.definition }}
+	{{ name.pronunciation }}
+	{{ name.example }}
+	{{ name.origin }}
+	{{ name.useOfWord }}
+	{{ name.vote }}
+{% endblock %}

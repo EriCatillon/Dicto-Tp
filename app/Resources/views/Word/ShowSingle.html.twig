@@ -3,15 +3,61 @@
 {% block title %}AppBundle:Word:Create{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Word:Create page</h1>
-	{{ post.id }}
-	{{ post.definition }}
-	{{ post.pronunciation }}
-	{{ post.example }}
-	{{ post.origin }}
-	{{ post.useOfWord }}
-	{{ post.vote }}
-	<a href="{{ path('vote', {'id': post.id}) }}">vote</a>
-	<a href="{{ path('update', {'id': post.id}) }}">update</a>
-	<a href="{{ path('delete', {'id': post.id}) }}">delete</a>
+
+	<div id="wrapper">
+
+		<h1>Welcome to the Word:ShowSingle page</h1>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">The Word</h3>
+			</div>
+			<div class="panel-body">
+				{{ post.theWord }}
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">Definition</h3>
+			</div>
+			<div class="panel-body">
+				{{ post.definition }}	
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">pronunciation</h3>
+			</div>
+			<div class="panel-body">
+				{{ post.pronunciation }}	
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">example</h3>
+			</div>
+			<div class="panel-body">
+				{{ post.example }}	
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">origin</h3>
+			</div>
+			<div class="panel-body">
+				{{ post.origin }}	
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">useOfWord</h3>
+			</div>
+			<div class="panel-body">
+				{{ post.useOfWord }}	
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">vote</h3>
+			</div>
+			<div class="panel-body">
+				{{ post.vote }}	
+			</div>
+		</div>
+		<div>
+			<a href="{{ path('vote', {'id': post.id}) }}">vote</a>
+			<a href="{{ path('update', {'id': post.id}) }}">update</a>
+			<a href="{{ path('delete', {'id': post.id}) }}">delete</a>
+		</div>
+	</div>
+	
+
 {% endblock %}
