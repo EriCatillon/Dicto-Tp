@@ -68,12 +68,15 @@ class LoadTerms implements FixtureInterface
                     //$this->addDefinitionToTerm($cols[2], $term);
                     $term->setpronunciation($cols[7]);
                 }else{
-                    $term->setpronunciation('test');
+                    $term->setpronunciation('');
                 }
-                /*$term->setNature($cols[8]);
-                $term->setGender($cols[9]);
-                $term->setNumber($cols[10]);*/
-                $term->setorigin($cols[11]);
+
+                if (!empty($cols[11])){
+                    //$this->addDefinitionToTerm($cols[2], $term);
+                    $term->setorigin($cols[11]);
+                }else{
+                    $term->setorigin('');
+                }
                 /*$created = new \DateTime();
                 //fix empty date
                 if (!is_numeric($cols[12]) || !is_numeric($cols[13])){
@@ -113,10 +116,14 @@ class LoadTerms implements FixtureInterface
                 }else{
                     $term->setexample('');
                 }
-                
+                if (!empty($cols[3])){
+                    //$this->addDefinitionToTerm($cols[3], $term);
+                    $term->setcategorie($cols[3]);
+                }else{
+                    $term->setcategorie('');
+                }
                 $term->setuseOfWord('');
-                $term->setcategorie('');
-                $term->setorigin('');
+                
                 //example ?
                 /*if (!empty($cols[4])){
                     $example = new Example();
