@@ -61,7 +61,7 @@ class LoadTerms implements FixtureInterface
                 */
                 //the keys of the array are d,s,v or e...
                 //$term->setcategorie( $categsArray[$cols[3]] );
-                $term->setMail('er@gmail.com');
+                $term->setMail('');
                 //$term->setVariations($cols[6]);
                 
                 if (!empty($cols[7])){
@@ -104,12 +104,7 @@ class LoadTerms implements FixtureInterface
                 }else{
                     $term->setdefinition2('');
                 }
-                if (!empty($cols[3])){
-                    //$this->addDefinitionToTerm($cols[3], $term);
-                    $term->setdefinition3($cols[3]);
-                }else{
-                    $term->setdefinition3('');
-                }
+                $term->setdefinition3('');
                 if (!empty($cols[4])){
                     //$this->addDefinitionToTerm($cols[3], $term);
                     $term->setexample($cols[4]);
